@@ -1,0 +1,87 @@
+A short introduction to R
+========================================================
+author: Lars Relund Nielsen  
+date: R workshop Feb. 21th 2019
+autosize: true
+<!-- font-import: http://fonts.googleapis.com/css?family=Risque -->
+<!-- font-family: 'Risque' -->
+
+
+
+Agenda
+========================================================
+
+Welcome to this workshop which will contain a set of examples on what you can use R for. There will be a lot of breaks during the workshop where you can solve a set of exercises. 
+
+- Loading this R project from GitHub
+- What is R?
+- Your first R script
+- Importing and exporting data
+
+***
+
+- Plotting in R
+- Drawing a network
+- Solving a Markov decision process
+- Solving an LP
+- Example 
+
+
+Agenda
+========================================================
+
+
+
+A short video
+========================================================
+
+<iframe width="1120" height="630" src="https://www.youtube.com/embed/XcBLEVknqvY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+
+R 
+========================================================
+
+- Is an interpreted language and can be accessed through a command-line interpreter
+- Is at its heart, is a functional programming language
+- A powerfull program for data management and plotting
+- Can be extended through user-created packages
+- Can be combined with C, C++, Python etc.
+- Can be used to create reports that support the idea of reproducible research
+- Is free
+- Works on all OS platforms
+
+
+
+Shiny web apps
+========================================================
+
+[Shiny](https://shiny.rstudio.com/) is an R package that makes it easy to build interactive web apps straight from R. You can host standalone apps on a webpage or embed them in R Markdown documents or build dashboards. Examples can be seen at [Shiny Gallary](https://shiny.rstudio.com/gallery/) or the [Showcase](https://www.rstudio.com/products/shiny/shiny-user-showcase/) gallery. Some examples are:
+
+- [Distributions](https://gallery.shinyapps.io/dist_calc/)
+- [Emergency Department Simulation](https://gallery.shinyapps.io/EDsimulation/)
+
+***
+
+- [Traveling Salesman](https://gallery.shinyapps.io/shiny-salesman/)
+- [Central Limit Theorem for Means](https://gallery.shinyapps.io/CLT_mean/)
+- [Bullwhip game](https://cran.r-project.org/web/packages/bullwhipgame/index.html) (see below)
+
+```{r, eval=FALSE}
+library(bullwhipgame)
+bullwhipgame()
+```
+
+
+
+Good References
+========================================================
+
+- [Advanced R](http://adv-r.had.co.nz/) by Hadley Wickham
+- [R packages](http://r-pkgs.had.co.nz/) by Hadley Wickham
+- [R for Data Science](https://r4ds.had.co.nz/) by Garrett Grolemund and Hadley Wickham
+- [RSeek](https://rseek.org/) (a search engine)
+- [Cookbook for R](http://www.cookbook-r.com/) by Winston Chang
+- [DataCamp](https://www.datacamp.com/home) (online R courses)
+
+- [Best Practices for Scientific Computing](https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1001745) (a paper about scientific programming)
