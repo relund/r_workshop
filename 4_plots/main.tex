@@ -1,0 +1,16 @@
+\documentclass[]{article}
+
+\usepackage{a4wide}	% Smaller margins
+\usepackage[utf8]{inputenc} % Support for various letters
+\usepackage{mathptmx} % Use Times as roman font and in math
+\usepackage[scaled=0.95]{helvet}  % Use helvetica as sans serif font and scale it down to 0.95%
+%\renewcommand{\familydefault}{phv}	% Use sans serif as default font
+\usepackage{courier} % Use courier as typewriter font
+\usepackage[T1]{fontenc} % The font encoding used. Always load after the last font package.
+\usepackage{tikz}
+
+\begin{document}
+
+\resizebox{\linewidth}{!}{\input{plot.tex}}
+
+\end{document}
