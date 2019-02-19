@@ -16,6 +16,7 @@ Welcome to this workshop which will contain a set of examples on what you can us
 - Loading this R project from GitHub
 - What is R?
 - An R script
+- A notebook / markdown
 - Importing and exporting data
 
 ***
@@ -55,11 +56,35 @@ R
 
 
 
-An R script
+An R script (`1_r_script`)
 ========================================================
 
--
--
+You may save your R script in a file containing each line of code you want to run. 
+
+Let us have a look at the code in sub-folder `1_r_script`
+
+
+
+A notebook / markdown (`2_notebook`)
+========================================================
+
+You may combine R code and you comments in a notebook or markdown document.
+
+Let us have a look at the code in sub-folder `2_notebook`
+
+- `markdown.Rmd` - a notebook with inline content
+- `notebook.Rmd` - a markdown that we compile (or run the chunks one at a time)
+
+
+
+Importing and exporting data  (`3_import_export`)
+========================================================
+
+Let us have a look at the code in sub-folder `3_import_export`. 
+
+We use a markdown document here. 
+
+
 
 
 

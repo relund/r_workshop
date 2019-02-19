@@ -1,0 +1,108 @@
+---
+title: "Examples of import and export of data"
+author: "Lars Relund Nielsen"
+date: "19 feb 2019"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(width=90)
+```
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+
+
+## Importing a dataset
+
+Assume that you want to load data from a csv file. Here it is good to know the format of the csv. If you don't know the format you may do 
+
+```{r}
+haveALook <- function(fName) {
+  con <- file(fName, "r")
+  firstLine <- readLines(con, n = 2)
+  close(con)
+  cat(firstLine, sep="\n")
+}
+haveALook("data/reduc.csv")
+```
+
+Here the deliminator is a semicolon and a decimals are indicated by a dot. We load the data:
+
+```{r}
+dat<-read.csv2("data/reduc.csv", dec=".")   # old school (base R)
+head(dat)
+library(readr)
+dat<-read_delim("data/reduc.csv", delim=";")  # more modern way (better)
+dat
+```
+
+Let us try to load data from a Excel file. There is a lot of packages that can do that. We will use the `readxl` package.
+
+```{r}
+library(readxl)
+dat1 <- read_excel("data/trans_2015-01_exam.xlsx", sheet = "Opg2 Spm1", range="A1:G29")
+dat1
+```
+
+
+Finally you may also import data directly from R's binary storage format. 
+
+```{r}
+load("data/pen1Ave")  # normally have the extension .Rdata
+head(pen1Ave)
+```
+
+You may also connect to databases for import and export which is beyond the scope here. 
+
+
+## Exporting a dataset
+
+First let us save a csv file. Let us modify dataset `dat` a bit:
+
+```{r}
+dat$ratio<-dat$ratioMmD<-NULL
+dat$k<-NULL
+dat$gInfo<- -dat$gInfo
+dat$gStoc<- -dat$gStoc
+dat$reduc<-dat$reduc*100
+rownames(dat)<-NULL
+dat
+```
+
+and then save it as a csv:
+
+```{r}
+write_csv(dat, path = "dat.csv")
+haveALook("dat.csv")
+write_csv2(dat, path = "dat.csv")
+haveALook("dat.csv")
+```
+
+To save data to a Excel file we will use the `xlsx` package (you must have Java installed on your system):
+
+```{r, eval=FALSE}
+library(xlsx)
+fName <- "test.xlsx"
+file.remove(fName)
+write.xlsx(dat, fName, sheetName = "Data")
+write.xlsx(dat, fName, sheetName = "Data1", append = TRUE)
+shell.exec(fName)
+```
+
+To save using a R's internal binary format use:
+
+```{r}
+dat1
+save(dat1, dat, file = "test.RData")  # save both datasets in one file
+```
+
+
+Finally, recall that you can compile this document using the 'Knit' button. 
+
+
+
+
