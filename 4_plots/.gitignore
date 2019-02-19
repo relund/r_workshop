@@ -2,3 +2,7 @@ main.aux
 main.log
 main.pdf
 main.synctex.gz
+plot.tex
+plots.html
+plots_cache
+plots_files
