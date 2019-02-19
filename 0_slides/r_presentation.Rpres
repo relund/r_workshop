@@ -15,12 +15,12 @@ Welcome to this workshop which will contain a set of examples on what you can us
 
 - Loading this R project from GitHub
 - What is R?
-- Your first R script
+- An R script
 - Importing and exporting data
 
 ***
 
-- Plotting in Rafsf sda fsd asdfdasdf 
+- Plotting in R
 - Drawing a network
 - Solving a Markov decision process
 - Solving an LP
@@ -29,6 +29,8 @@ Welcome to this workshop which will contain a set of examples on what you can us
 
 Loading this R project from GitHub
 ========================================================
+
+![](graphics/github.png) 
 
 
 
@@ -43,13 +45,24 @@ R
 ========================================================
 
 - Is an interpreted language and can be accessed through a command-line interpreter
-- Is at its heart, is a functional programming language
+- Is at its heart, a functional programming language
 - A powerfull program for data management and plotting
 - Can be extended through user-created packages
 - Can be combined with C, C++, Python etc.
 - Can be used to create reports that support the idea of reproducible research
 - Is free
 - Works on all OS platforms
+
+
+
+An R script
+========================================================
+
+-
+-
+
+
+
 
 
 
