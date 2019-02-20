@@ -1,0 +1,158 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage{a4wide}
+\usepackage[sc]{mathpazo}
+\usepackage[utf8]{inputenc} % Support for danish letters
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{fancyref}
+\renewcommand{\fancyrefdefaultformat}{plain}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{ctable}
+%% ---------------------------------------------------------------------
+
+\title{Using knitr, R and \LaTeX}
+\author{Lars Relund Nielsen}
+
+%% ---------------------------------------------------------------------
+
+\parindent0pt
+\begin{document}
+
+
+
+\maketitle
+
+%-% Each student start with a file in a local folder
+
+<<setup, include=FALSE>>= 
+library(knitr)
+# set global chunk options
+opts_chunk$set(fig.path='graphic/', fig.align='center', fig.show='hold', fig.width=7, fig.height=7, out.width='.8\\linewidth')
+options(formatR.arrow=F, width=90)
+knit_hooks$set(inline = function(x) {if (is.numeric(x)) round(x, 3)})
+## cache is only valid with a specific version of R and session info
+## cache will be kept for at most a month (re-compute the next month)
+#opts_chunk$set(cache.extra = list(R.version, sessionInfo(), format(Sys.Date(), '%Y-%m'))
+@ 
+
+To use \href{http://yihui.name/knitr/}{knitr} and R together you open a new "R weave" file. Now you have a file where you can weave \LaTeX\ and r code. The whole idea is to automate your research flow which produced a paper (see it as this document).
+Let us try to give some useful examples. 
+
+
+\section{General usage}
+
+You embed R code using af chunk 
+
+<<hello, echo=FALSE>>=
+x<-"Hello world"
+x
+@
+
+Here you may specify different options for a chunk e.g. option 
+\begin{itemize}
+\item \texttt{echo = false} hides the R code.
+\item \texttt{eval = false} do not evaluate the code.
+\item \texttt{results = hide} hide output.
+\end{itemize}
+See the knirt page for further options.
+%-% Try different options
+
+You may also do inline calculations using \verb+\Sexpr+ such as $\pi=\Sexpr{pi}$.
+
+
+
+\section{Loading data from a csv}
+
+Assume that you want to load data from a csv file:
+
+<<load csv, cache=TRUE>>=
+dat<-read.csv2("data/reduc.csv", dec=".")
+dat<-dat[1:36,]
+dat$ratio<-dat$ratioMmD<-NULL
+dat$k<-NULL
+dat$gInfo<- -dat$gInfo
+dat$gStoc<- -dat$gStoc
+dat$reduc<-dat$reduc*100
+rownames(dat)<-NULL
+head(dat)
+@
+
+
+\section{Producing tables}
+
+Nice tables can be produced automatically. Example using xtable directly
+
+<<table1, results="asis">>=
+n <- 100
+x <- rnorm(n)
+y <- 2*x + rnorm(n)
+out <- lm(y ~ x)
+library(xtable)
+xtable(summary(out)$coef, digits=c(0, 2, 2, 1, 2))
+@
+
+An example using ctable which produce \Fref{tab:results}.
+
+\ctable[
+  caption = {Results for different instances of the model.},
+	botcap,
+	label = tab:results,
+	width = \textwidth,
+	doinside=\scriptsize
+]{RRRRRRRRRRRR}{
+	\tnote[a]{Average cost per time unit (informed lead times).}
+	\tnote[b]{Average cost per time unit (uninformed lead times).}
+	\tnote[c]{Cost reduction in percent ($1-g_{I}/g_{U}$).}
+}{ \toprule
+	\# & $M$ & $Z$ & $\mu$ & $\sigma$ & $\lambda$ & $c$ & $p$ & $h$ & $g_{I}$\tmark[a] & $g_{U}$\tmark[b] & $\Delta$\tmark[c] \\
+\midrule
+<<table3, results='asis', echo=FALSE>>=
+xtab<-xtable(dat,digits=c(0,0,0,0,0,0,0,0,0,0,0,1),display=c("d","d","d","d","d","d","d","d","d","f","f","f"))
+print(xtab, only.contents=T, include.colnames=F, include.rownames=T, hline.after=c(6,15), booktabs=T)
+@
+\bottomrule 
+}%
+
+
+\section{Produce a package}
+
+For larger code chunks and c++ code it may be a good idea to produce a package. For a good reference see \href{http://adv-r.had.co.nz/}{The advanced R book} and \href{http://r-pkgs.had.co.nz/}{R packages book}.
+
+
+\section{The ultimate OR work flow}
+
+I theory you should be able to 
+
+\begin{enumerate}
+\item Make a R package with your algorithms and test instances (if must be fast with some c++ code) and use github while write and test it.
+\item Start writing the paper using R and knitr with pseudo code:
+
+<<code1, eval=FALSE, tidy=TRUE>>=
+library(devtools)
+install_github(repo, username, ref = "version", ...) # install the package from github
+tests<-generateTests(...)
+results<-runAlgorithm(tests)
+@
+
+\item Use the results in the result section to make plots and tables. 
+
+\end{enumerate}
+
+
+
+\section{Details for reproducibility}
+
+Include the {\tt sessionInfo()} and instructions on running/compiling the document for your collaborators (or future self)
+
+<<sessionInfo>>=
+sessionInfo()
+@
+
+
+\end{document}
