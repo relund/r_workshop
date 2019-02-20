@@ -11,7 +11,9 @@ autosize: true
 Agenda
 ========================================================
 
-Welcome to this workshop which will contain a set of examples on what you can use R for. There will be a lot of breaks during the workshop where you can solve a set of exercises. 
+Welcome to this workshop which will contain a set of examples on what you can use R for. There will be a lot of breaks during the workshop where you can work with the code. 
+
+Currently we will cover:
 
 - Loading this R project from GitHub
 - What is R?
@@ -22,14 +24,17 @@ Welcome to this workshop which will contain a set of examples on what you can us
 ***
 
 - Plotting in R
-- 
-- Solving a Markov decision process
-- Solving an LP
-- Example 
+- Optimization
+- Fitting a distribution
+- Reproducible Research
+- Shiny web apps
+
 
 
 Loading this R project from GitHub
 ========================================================
+
+Clone `https://github.com/relund/r_workshop.git`
 
 ![](graphics/github.png) 
 
@@ -47,7 +52,7 @@ R
 
 - Is an interpreted language and can be accessed through a command-line interpreter
 - Is at its heart, a functional programming language
-- A powerfull program for data management and plotting
+- A powerful program for data management and plotting
 - Can be extended through user-created packages
 - Can be combined with C, C++, Python etc.
 - Can be used to create reports that support the idea of reproducible research
@@ -56,7 +61,7 @@ R
 
 
 
-An R script (r_script)
+An R script (r_script folder)
 ========================================================
 
 You may save your R script in a file containing each line of code you want to run. 
@@ -65,19 +70,19 @@ Let us have a look at the code in sub-folder `1_r_script`
 
 
 
-A notebook / markdown (notebook)
+A notebook / markdown (notebook folder)
 ========================================================
 
 You may combine R code and you comments in a notebook or markdown document.
 
 Let us have a look at the code in sub-folder `2_notebook`
 
-- `markdown.Rmd` - a notebook with inline content
-- `notebook.Rmd` - a markdown that we compile (or run the chunks one at a time)
+- `notebook.Rmd` - a notebook with inline content
+- `markdown.Rmd` - a markdown that we compile (or run the chunks one at a time)
 
 
 
-Importing and exporting data  (import_export)
+Importing and exporting data  (import_export folder)
 ========================================================
 
 Let us have a look at the code in sub-folder `3_import_export`. 
@@ -86,7 +91,7 @@ We use a markdown document here.
 
 
 
-Plotting in R (plots)
+Plotting in R (plots folder)
 ========================================================
 
 We will consider different ways of making plots in sub-folder `4_plots`. 
@@ -95,9 +100,32 @@ We use a markdown document here.
 
 
 
+Optimization (optimization folder)
+========================================================
+
+There is a lot of packages related to [optimization](https://cran.r-project.org/web/views/Optimization.html) in R
+
+We consider a few examples in sub-folder `5_optimization`.
+
+We use a markdown document here. 
 
 
 
+Fitting a distribution (distfit folder)
+========================================================
+
+We fit data to a distribution in sub-folder `6_distfit`.
+
+We use a markdown document here. 
+
+
+
+Reproducible Research (reprod_research folder)
+========================================================
+
+A few slides are in folder `7_reprod_research`. Moreover, a knitr LaTeX document is also available to show that you can do the same with a LaTeX document as in markdown.
+
+We will cover this briefly.
 
 
 
@@ -131,5 +159,4 @@ Good References
 - [RSeek](https://rseek.org/) (a search engine)
 - [Cookbook for R](http://www.cookbook-r.com/) by Winston Chang
 - [DataCamp](https://www.datacamp.com/home) (online R courses)
-
 - [Best Practices for Scientific Computing](https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1001745) (a paper about scientific programming)

@@ -117,3 +117,4 @@ text(x, y, labels(eurodist), cex = 0.8)
 More advanced heuristics can be solved using [LocalSolver](https://www.localsolver.com/) and the package `localsolver`. You may see my [post](http://www.research.relund.dk/?p=676) about solving VRPs
 
 
+You may also solve a Markove decision process using packages `MDP2` or `MDPtoolbox`.
