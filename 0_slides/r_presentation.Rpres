@@ -1,4 +1,4 @@
-A short introduction to R
+An introduction to R
 ========================================================
 author: Lars Relund Nielsen  
 date: R workshop Feb. 21th 2019
@@ -22,7 +22,7 @@ Welcome to this workshop which will contain a set of examples on what you can us
 ***
 
 - Plotting in R
-- Drawing a network
+- 
 - Solving a Markov decision process
 - Solving an LP
 - Example 
@@ -56,7 +56,7 @@ R
 
 
 
-An R script (`1_r_script`)
+An R script (r_script)
 ========================================================
 
 You may save your R script in a file containing each line of code you want to run. 
@@ -65,7 +65,7 @@ Let us have a look at the code in sub-folder `1_r_script`
 
 
 
-A notebook / markdown (`2_notebook`)
+A notebook / markdown (notebook)
 ========================================================
 
 You may combine R code and you comments in a notebook or markdown document.
@@ -77,7 +77,7 @@ Let us have a look at the code in sub-folder `2_notebook`
 
 
 
-Importing and exporting data  (`3_import_export`)
+Importing and exporting data  (import_export)
 ========================================================
 
 Let us have a look at the code in sub-folder `3_import_export`. 
@@ -86,7 +86,7 @@ We use a markdown document here.
 
 
 
-Plotting in R (`4_plots`)
+Plotting in R (plots)
 ========================================================
 
 We will consider different ways of making plots in sub-folder `4_plots`. 
