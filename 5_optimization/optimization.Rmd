@@ -1,0 +1,119 @@
+---
+title: "Optimization examples"
+author: "Lars Relund Nielsen"
+date: "20 feb 2019"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+```
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. 
+
+## Setup
+
+```{r}
+#' Function for loading missing packages that install them if not already installed.
+#'
+#' @param packages String vector with package names
+#'
+#' @return NULL (invisible)
+#' @export
+#'
+#' @examples loadPackages(c("MASS", "ggplot2", "tikzDevice"))
+loadPackages <- function(packages) {
+   newP <- packages[!(packages %in% installed.packages()[,"Package"])]
+   if(length(newP)) install.packages(newP, repos = "http://cran.rstudio.com/")
+   lapply(packages, library, character.only = TRUE)
+   invisible(NULL)
+}
+```
+
+## Solving an MILP using package `ompr`
+
+```{r cars}
+loadPackages(c("dplyr", "ROI", "ROI.plugin.glpk", "ompr", "ompr.roi") )
+
+result <- MIPModel() %>%
+  add_variable(x, type = "integer") %>%
+  add_variable(y, type = "continuous", lb = 0) %>%
+  set_bounds(x, lb = 0) %>%
+  set_objective(x + y, "max") %>%
+  add_constraint(x + y <= 11.25) %>%
+  solve_model(with_ROI(solver = "glpk")) 
+get_solution(result, x)
+get_solution(result, y)
+```
+
+
+## Calling a solver directly using system
+
+Here solve an OPL MILP model using Cplex. Output of the model are written to a set of csv files
+
+```{r}
+system("cmd.exe /S /C C:/tools/CPLEX_Studio127/opl/bin/x64_win64/oplrun manpower_model.mod F3.dat")
+library(readr)
+sol <- read_csv2("solution_0.csv")
+sol
+```
+
+
+## Using R's general purpose solver
+
+Under the examples for `optim` (run `?optim`) there is an example solving a TSP using simulated anneling:
+
+```{r}
+library(stats) # normally loaded
+
+eurodistmat <- as.matrix(eurodist)
+
+distance <- function(sq) {  # Target function
+    sq2 <- embed(sq, 2)
+    sum(eurodistmat[cbind(sq2[,2], sq2[,1])])
+}
+
+genseq <- function(sq) {  # Generate new candidate sequence
+    idx <- seq(2, NROW(eurodistmat)-1)
+    changepoints <- sample(idx, size = 2, replace = FALSE)
+    tmp <- sq[changepoints[1]]
+    sq[changepoints[1]] <- sq[changepoints[2]]
+    sq[changepoints[2]] <- tmp
+    sq
+}
+
+sq <- c(1:nrow(eurodistmat), 1)  # Initial sequence: alphabetic
+distance(sq)
+# rotate for conventional orientation
+loc <- -cmdscale(eurodist, add = TRUE)$points
+x <- loc[,1]; y <- loc[,2]
+s <- seq_len(nrow(eurodistmat))
+tspinit <- loc[sq,]
+
+plot(x, y, type = "n", asp = 1, xlab = "", ylab = "",
+     main = "initial solution of traveling salesman problem", axes = FALSE)
+arrows(tspinit[s,1], tspinit[s,2], tspinit[s+1,1], tspinit[s+1,2],
+       angle = 10, col = "green")
+text(x, y, labels(eurodist), cex = 0.8)
+
+set.seed(123) # chosen to get a good soln relatively quickly
+res <- optim(sq, distance, genseq, method = "SANN",
+             control = list(maxit = 30000, temp = 2000, trace = TRUE,
+                            REPORT = 500))
+res  # Near optimum distance around 12842
+
+tspres <- loc[res$par,]
+plot(x, y, type = "n", asp = 1, xlab = "", ylab = "",
+     main = "optim() 'solving' traveling salesman problem", axes = FALSE)
+arrows(tspres[s,1], tspres[s,2], tspres[s+1,1], tspres[s+1,2],
+       angle = 10, col = "red")
+text(x, y, labels(eurodist), cex = 0.8)
+```
+ 
+More advanced heuristics can be solved using [LocalSolver](https://www.localsolver.com/) and the package `localsolver`. You may see my [post](http://www.research.relund.dk/?p=676) about solving VRPs
+
+
